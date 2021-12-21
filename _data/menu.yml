@@ -23,12 +23,12 @@ entries:
       show_more_text: See more posts...
       show_more_url: linux-archive.html
 
-  # - title: Algorithms
-  #   post_list:
-  #     category: algorithms
-  #     show_more: true
-  #     show_more_text: See more posts...
-  #     show_more_url: example2-archive.html
+  - title: Algorithms
+    post_list:
+      category: algorithms
+      show_more: true
+      show_more_text: See more posts...
+      show_more_url: example2-archive.html
 
   - title: Tutorials
     post_list:
@@ -37,12 +37,19 @@ entries:
       show_more_text: See more posts...
       show_more_url: tutorials-archive.html
 
-  # - title: Cheat sheets
-  #   post_list:
-  #     category: chuletas
-  #     show_more: true
-  #     show_more_text: See more posts...
-  #     show_more_url: example2-archive.html
+  - title: Resources
+    post_list:
+      category: chuletas
+      show_more: true
+      show_more_text: See more posts...
+      show_more_url: example2-archive.html
+
+  - title: Software Architecture
+    post_list:
+      category: architecture
+      show_more: true
+      show_more_text: See more posts...
+      show_more_url: example2-archive.html
 
   # - title: Tutorials
   #   entries:

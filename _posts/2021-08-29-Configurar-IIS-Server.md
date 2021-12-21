@@ -27,7 +27,7 @@ Ir a `⊞ > IIS > Conexiones > Grupos aplicaciones > Agregar...aplicaciones` y e
 > `SITIO`: Un sitio es el contenedor de aplicaciones. Establecen el puerto de red por la cual las aplicaciones que contiene atenderán sus solicitudes. ej. http://myserver.com:8181,http://myserver.com:80,http://myserver.com:9090 
 
 > `APLICACION`: Una aplicación es una carpeta la cual será interpretada como un proyecto que necesita un CLR determinado de acuerdo al grupo de aplicaciones al que pertenece.
-> > Una aplicacion agrega al prefijo de su ruta las carpetas padre [*directorios virtuales*] dentro del cual se encuentre. ej. **SITIO:**`http://myserver.com:8181`, **DIRECTORIO VIRTUAL:**`/ws/huixquilucan`, entonces la ruta para acceder al `index.html` de esta aplicaciones será: `http://myserver.com:8181/ws/huixquilucan/index.html`
+> Una aplicacion agrega al prefijo de su ruta las carpetas padre [*directorios virtuales*] dentro del cual se encuentre. ej. **SITIO:**`http://myserver.com:8181`, **DIRECTORIO VIRTUAL:**`/ws/huixquilucan`, entonces la ruta para acceder al `index.html` de esta aplicaciones será: `http://myserver.com:8181/ws/huixquilucan/index.html`
 
 > `DIRECTORIO_VIRTUAL`:  Un directorio virtual ofrece una herramienta para tener organizados las aplicaciones. Para garantizar que no existan conflictos o colisiones entre las aplicaciones. el directorio virtual agrega la ruta de sus carpetas como prefijo de la aplicaciones despues de la url del stio. EJ: **DIRECTORIO VIRTUAL:**`/ws/huixquilucan`, entonces la aplicacion comienza a partir de la ruta: `http://myserver.com:8181/ws/huixquilucan/`
 
