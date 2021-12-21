@@ -37,14 +37,9 @@ jobs:
         env:
           JEKYLL_ENV: production
         run: |
-          bundle exec jekyll b -d "_site$BASE_URL" --trace
+          bundle exec jekyll b -d "_site" --trace
+          ls -l _site
 
       - name: Deploy
-        run: |
-          if [[ -n $BASE_URL ]]; then
-            mv _site$BASE_URL _site-rename
-            rm -rf _site
-            mv _site-rename _site
-          fi
-
+        run: |          
           bash tools/deploy.sh
