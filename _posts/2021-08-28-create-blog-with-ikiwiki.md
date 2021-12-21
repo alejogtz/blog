@@ -9,6 +9,7 @@ slug: hr example
 ## Installation on Ubuntu or Debian
 
 ```bash
+  # install on ubuntu
   $ apt-get install ikiwiki
 ```
 
