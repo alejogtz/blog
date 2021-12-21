@@ -16,12 +16,12 @@ entries:
       show_more_text: See archive...
       show_more_url: archive.html
 
-  # - title: Cryptography
-  #   post_list:
-  #     category: security
-  #     show_more: true
-  #     show_more_text: See more posts...
-  #     show_more_url: example2-archive.html
+  - title: Linux
+    post_list:
+      category: linux
+      show_more: true
+      show_more_text: See more posts...
+      show_more_url: linux-archive.html
 
   # - title: Algorithms
   #   post_list:
@@ -30,12 +30,12 @@ entries:
   #     show_more_text: See more posts...
   #     show_more_url: example2-archive.html
 
-  # - title: Cheat sheets
-  #   post_list:
-  #     category: chuletas
-  #     show_more: true
-  #     show_more_text: See more posts...
-  #     show_more_url: example2-archive.html
+  - title: Tutorials
+    post_list:
+      category: tutorials
+      show_more: true
+      show_more_text: See more posts...
+      show_more_url: tutorials-archive.html
 
   # - title: Cheat sheets
   #   post_list:

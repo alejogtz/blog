@@ -1,7 +1,7 @@
 ---
 layout: post
 category: tutorials
-slug: hr example
+slug: Create a blog with ikiwiki
 ---
 
 # Setup Ikiwiki with docker thttpd 
