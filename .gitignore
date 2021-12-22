@@ -1,3 +1,5 @@
+.vscode
+
 *.gem
 .bundle
 .jekyll-cache
