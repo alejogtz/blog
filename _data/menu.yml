@@ -6,8 +6,8 @@ entries:
     entries:
       - title: Follow me on twitter.
         url: https://twitter.com/gzalejo
-      - title: github
-        url: https://github.com/alejogz      
+      - title: Github Profile
+        url: https://github.com/alejogtz
 
   - title: recent posts
     post_list:
