@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.1">Jekyll</generator><link href="https://alejogtz.github.io/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="https://alejogtz.github.io/blog/" rel="alternate" type="text/html" /><updated>2022-03-14T23:46:34+00:00</updated><id>https://alejogtz.github.io/blog/feed.xml</id><title type="html">Blog!</title><subtitle>Hey! 👋 I'm Alejo. I write about code.
+</subtitle><author><name>Alejo Gutierrez</name></author><entry><title type="html">Serve Local Folder As Website</title><link href="https://alejogtz.github.io/blog/fast-ways-to-run-local-folder-as-website.html" rel="alternate" type="text/html" title="Serve Local Folder As Website" /><published>2021-12-21T00:00:00+00:00</published><updated>2021-12-21T00:00:00+00:00</updated><id>https://alejogtz.github.io/blog/Fast%20ways%20to%20run%20local%20folder%20as%20website</id><content type="html" xml:base="https://alejogtz.github.io/blog/fast-ways-to-run-local-folder-as-website.html">&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#using-docker&quot;&gt;Using Docker&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#httpd2--apache-server-&quot;&gt;httpd2 (Apache Server)&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#thttpd&quot;&gt;thttpd&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#traditional-web-servers&quot;&gt;Traditional web servers.&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#nginx&quot;&gt;Nginx&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#apache&quot;&gt;Apache&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#using-python&quot;&gt;Using Python&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#using-npm&quot;&gt;Using NPM&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;hot-ways-to-serve-your-local-folder-as-simple-website&quot;&gt;Hot ways to serve your local folder as simple website&lt;/h1&gt;
+
+&lt;h2 id=&quot;using-docker&quot;&gt;Using Docker&lt;/h2&gt;
+
+&lt;h3 id=&quot;httpd2-apache-server&quot;&gt;httpd2 (Apache Server)&lt;/h3&gt;
+
+&lt;p&gt;Run :&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run --rm --name static-web-server -dit \
+-v /home/www/html:/usr/local/apache2/htdocs/ \
+-p 80:80 \
+httpd:2.4
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;If you want only share a single file, choose 
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-v /home/www/html/file.zip:/usr/local/apache2/htdocs/download.zip&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Now, you can open web server on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://localhost&lt;/code&gt; port &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;80&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;thttpd&quot;&gt;thttpd&lt;/h3&gt;
+
+&lt;p&gt;This is a minimal (approx. 1MB) image that runs thttpd (a web server) on port 80. Without any additional configuration it will serve out a single sample page&lt;/p&gt;
+
+&lt;p&gt;If you want to serve your own static content with this image, you can use it like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run -v /path/to/my/content:/content larsks/thttpd -d /content
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Text extracted from &lt;a href=&quot;https://hub.docker.com/r/larsks/thttpd/&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;traditional-web-servers&quot;&gt;Traditional web servers.&lt;/h2&gt;
+
+&lt;h3 id=&quot;nginx&quot;&gt;Nginx&lt;/h3&gt;
+
+&lt;p&gt;Download zip server&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ curl http://nginx.org/download/nginx-1.20.1.zip -o nginx.zip
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Unzip the zip&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ unzip nginx.zip -d ./server/ ; mv server/nginx-1.20.1 server/html
+$ tree -L 2 ser
+.
+├── conf
+│   ├── fastcgi.conf
+│   ├── fastcgi_params
+│   ├── koi-utf
+│   ├── koi-win
+│   ├── mime.types
+│   ├── nginx.conf
+│   ├── scgi_params
+│   ├── uwsgi_params
+│   └── win-utf
+├── contrib
+│   ├── README
+│   ├── geo2nginx.pl
+│   ├── unicode2nginx
+│   └── vim
+├── docs
+│   ├── CHANGES
+│   ├── CHANGES.ru
+│   ├── LICENSE
+│   ├── OpenSSL.LICENSE
+│   ├── PCRE.LICENCE
+│   ├── README
+│   └── zlib.LICENSE
+├── html
+│   ├── 404.html
+│   ├── 50x.html
+│   ├── index.html
+├── logs
+├── nginx.exe
+└── temp
+
+2 directories, 18 files
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Edit &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;conf/nginx.conf&lt;/code&gt; and edit &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;port&lt;/code&gt; and add custom configuration&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ sed '/listen\s+([0-9]+)/s/80/9393/' conf/nginx.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;...
+ server &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        listen       9393&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        server_name  localhost&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+        charset utf-8&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+        &lt;span class=&quot;c&quot;&gt;# access_log  logs/host.access.log  main;&lt;/span&gt;
+
+        location / &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            root   html&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            index  index.html index.htm&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+...
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;apache&quot;&gt;Apache&lt;/h3&gt;
+
+&lt;p&gt;If you have apache installed locally, follow next steps to enable a new site configuration.&lt;/p&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;First, make directory for a new subdomain or domain under the same directory as the original website or create one if not exists.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Examples&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo mkdir -p /var/www/example.com/
+sudo mkdir -p /var/www/demo-site/ (would become demo.example.com)
+sudo mkdir -p /var/www/example2.com/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Grant permission to the new directory:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo chown -R $USER:$USER /var/www/test.com/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Modify permissions to ensure that read access is permitted:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo chmod -R 755 /var/www
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Copy the default Virtual Host and Customize for Second(sub/new) Domain
+clone existing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;000-default.conf&lt;/code&gt; under &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/apache2/sites-available/&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-demo.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;IMPORTANT::&lt;/strong&gt; The original or the first Virtual Host must be modifed as below&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;E.g. if &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;000-joomla.conf&lt;/code&gt; is the first Virtual Host, then:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    ServerName example.com
+    ServerAlias www.example.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;NOTE: forgetting to do the step above will cause database or cache conflict.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;E.g. virtualhost for demo.example.com&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;VirtualHost *:80&amp;gt;
+	&amp;lt;Directory /var/www/demo&amp;gt;
+			Options Indexes FollowSymLinks MultiViews
+			AllowOverride All
+			Order allow,deny
+			allow from all
+	&amp;lt;/Directory&amp;gt;
+	ServerName demo.example.com
+	ServerAlias www.demo.example.com
+	ServerAdmin webmaster@localhost
+	DocumentRoot /var/www/demo
+	...
+&amp;lt;/VirtualHost&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;after that, enable the New Virtual Host Files as below:&lt;/p&gt;
+
+&lt;p&gt;E.g:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo a2ensite example.com.conf
+sudo a2ensite 000-demo.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;then, reload apache&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo service apache2 reload
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;If you are running webserver on localhost then you need to redirect you &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/hosts&lt;/code&gt; for&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# /etc/hosts
+127.0.0.1 github.com
+127.0.0.1 example.com
+127.0.0.1 www.example.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;if you are running webserver on localhost on windows machine, then edit &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hosts&lt;/code&gt; files as this &lt;a href=&quot;https://gist.github.com/zenorocha/18b10a14b2deb214dc4ce43a2d2e2992&quot;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;using-python&quot;&gt;Using Python&lt;/h2&gt;
+
+&lt;p&gt;If you have python installed you can simply run this commans to expose files as downloadable&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python -m SimpleHTTPServer 8000
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;You can see how to use it in the exmaple follow next link &lt;a href=&quot;https://appdividend.com/2019/02/06/python-simplehttpserver-tutorial-with-example-http-request-handler/&quot;&gt;–» Here «–&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;using-npm&quot;&gt;Using NPM&lt;/h2&gt;
+
+&lt;p&gt;install &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http-serve&lt;/code&gt; from shell&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; http-server
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;usage&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt; http-server &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;path] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;options]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[path]&lt;/code&gt; defaults to ./public if the folder exists, and ./ otherwise.&lt;/p&gt;
+
+&lt;p&gt;Now you can visit http://localhost:8080 to view your server&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Note: Caching is on by default. Add &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-c-1&lt;/code&gt; as an option to disable caching.&lt;/p&gt;
+&lt;/blockquote&gt;</content><author><name>Alejo Gutierrez</name></author><category term="chuletas" /><summary type="html">Using Docker httpd2 (Apache Server) thttpd Traditional web servers. Nginx Apache Using Python Using NPM</summary></entry><entry><title type="html">Configurar Iis Server</title><link href="https://alejogtz.github.io/blog/configurar-servidor-iis-en-windows.html" rel="alternate" type="text/html" title="Configurar Iis Server" /><published>2021-08-29T00:00:00+00:00</published><updated>2021-08-29T00:00:00+00:00</updated><id>https://alejogtz.github.io/blog/Configurar%20Servidor%20IIS%20en%20Windows</id><content type="html" xml:base="https://alejogtz.github.io/blog/configurar-servidor-iis-en-windows.html">&lt;h1 id=&quot;configurar-servidor-iis&quot;&gt;Configurar Servidor IIS&lt;/h1&gt;
+&lt;h2 id=&quot;1-habilitar-los-servicios-en---caracteristicas-de-windows&quot;&gt;1. Habilitar los Servicios en &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;⊞ &amp;gt; Caracteristicas de Windows&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/5tRdE71.png&quot; alt=&quot;Caracteristicas de windows&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;2-crear-un-grupo-de-aplicaciones&quot;&gt;2. Crear un Grupo de Aplicaciones&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Un grupo de aplicaciones están asociados a procesos de trabajo, contienen una o más aplicaciones y &lt;strong&gt;proporcionan aislamiento entre aplicaciones&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Ir a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;⊞ &amp;gt; IIS &amp;gt; Conexiones &amp;gt; Grupos aplicaciones &amp;gt; Agregar...aplicaciones&lt;/code&gt; y elegir&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Campo&lt;/th&gt;
+      &lt;th&gt;Valor&lt;/th&gt;
+      &lt;th&gt;Comentario&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Nombre&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;&amp;lt;Nombre&amp;gt;&amp;gt;&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;El nombre que desees y que reprensente ese grupo de aplicaciones&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Version&lt;/td&gt;
+      &lt;td&gt;.Net CLR versión 4.0.3..&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;Version Common Languaje Runtime con el cual se ejecutarán las aplicaciones de este grupo&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Modo Canalizacion&lt;/td&gt;
+      &lt;td&gt;Integrada&lt;/td&gt;
+      &lt;td&gt;&lt;em&gt;X_X&lt;/em&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;21-creación-de-un-sitioaplicacion-y-directorio-virtual&quot;&gt;2.1 Creación de un &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SITIO&lt;/code&gt;,&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;APLICACION&lt;/code&gt; y &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DIRECTORIO VIRTUAL&lt;/code&gt;&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SITIO&lt;/code&gt;: Un sitio es el contenedor de aplicaciones. Establecen el puerto de red por la cual las aplicaciones que contiene atenderán sus solicitudes. ej. http://myserver.com:8181,http://myserver.com:80,http://myserver.com:9090&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;APLICACION&lt;/code&gt;: Una aplicación es una carpeta la cual será interpretada como un proyecto que necesita un CLR determinado de acuerdo al grupo de aplicaciones al que pertenece.
+Una aplicacion agrega al prefijo de su ruta las carpetas padre [&lt;em&gt;directorios virtuales&lt;/em&gt;] dentro del cual se encuentre. ej. &lt;strong&gt;SITIO:&lt;/strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://myserver.com:8181&lt;/code&gt;, &lt;strong&gt;DIRECTORIO VIRTUAL:&lt;/strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/ws/huixquilucan&lt;/code&gt;, entonces la ruta para acceder al &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;index.html&lt;/code&gt; de esta aplicaciones será: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://myserver.com:8181/ws/huixquilucan/index.html&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DIRECTORIO_VIRTUAL&lt;/code&gt;:  Un directorio virtual ofrece una herramienta para tener organizados las aplicaciones. Para garantizar que no existan conflictos o colisiones entre las aplicaciones. el directorio virtual agrega la ruta de sus carpetas como prefijo de la aplicaciones despues de la url del stio. EJ: &lt;strong&gt;DIRECTORIO VIRTUAL:&lt;/strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/ws/huixquilucan&lt;/code&gt;, entonces la aplicacion comienza a partir de la ruta: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://myserver.com:8181/ws/huixquilucan/&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;3-preparar-el-entorno-para-publicar&quot;&gt;3. Preparar el entorno para publicar&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;Crear Carpeta en &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;C:/api/servicios&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Habilitarle Permisos a Los usuarios Necesarios&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Warning:&lt;/strong&gt; si no se configuran los permisos a la hora de abrir la aplicacion en el navegador encontrará un problema con que el CLR no tiene permisos de lectura de la carpeta donde se encuentra la aplicacion&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;35-publicar-como-aplicacion&quot;&gt;3.5 Publicar como Aplicacion&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;Desde a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;⊞ &amp;gt; IIS &amp;gt; Conexiones &amp;gt; Sitios &amp;gt; &amp;lt;click derecho&amp;gt; &amp;gt; Agregar Sitio Web &lt;/code&gt; completar con la siguiente configuracion
+    &lt;ul&gt;
+      &lt;li&gt;Nombre del Sitio: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apirest&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;Grupo de Aplicaciones: DefaultAppPool&lt;/li&gt;
+      &lt;li&gt;Ruta de Acceso Fisica: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;C:/api/servicios&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;Enlace &amp;gt; Tipo: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;Enlace &amp;gt; Direccion IP: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Todas las Asignadas&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;Enlace &amp;gt; Puerto: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;80&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;Enlace &amp;gt; Nombre del Host: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;Vacio&amp;gt;&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Click en &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Aceptar&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;4-publicar-desde-visual-studio&quot;&gt;4. Publicar desde Visual Studio&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;En &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Solucion &amp;gt; Proyecto &amp;gt; &amp;lt;Clic Derecho&amp;gt; &amp;gt; Publicar&lt;/code&gt; elegir la siguiente configuración.
+    &lt;ul&gt;
+      &lt;li&gt;En &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Folder Profile &amp;gt; Editar&lt;/code&gt; Seleccionar
+        &lt;ul&gt;
+          &lt;li&gt;Metodo de Publicación : &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Sistema de Archivos&lt;/code&gt;&lt;/li&gt;
+          &lt;li&gt;Ubicacion de Destino : &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;C:/api/servicios&lt;/code&gt;&lt;/li&gt;
+          &lt;li&gt;Finalmente &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Guardar&lt;/code&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Click en &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Publicar&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;</content><author><name>Alejo Gutierrez</name></author><category term="tutorials" /><summary type="html">Configurar Servidor IIS 1. Habilitar los Servicios en ⊞ &amp;gt; Caracteristicas de Windows 2. Crear un Grupo de Aplicaciones Un grupo de aplicaciones están asociados a procesos de trabajo, contienen una o más aplicaciones y proporcionan aislamiento entre aplicaciones Ir a ⊞ &amp;gt; IIS &amp;gt; Conexiones &amp;gt; Grupos aplicaciones &amp;gt; Agregar...aplicaciones y elegir Campo Valor Comentario Nombre &amp;lt;&amp;lt;Nombre&amp;gt;&amp;gt; El nombre que desees y que reprensente ese grupo de aplicaciones Version .Net CLR versión 4.0.3.. Version Common Languaje Runtime con el cual se ejecutarán las aplicaciones de este grupo Modo Canalizacion Integrada X_X 2.1 Creación de un SITIO,APLICACION y DIRECTORIO VIRTUAL SITIO: Un sitio es el contenedor de aplicaciones. Establecen el puerto de red por la cual las aplicaciones que contiene atenderán sus solicitudes. ej. http://myserver.com:8181,http://myserver.com:80,http://myserver.com:9090 APLICACION: Una aplicación es una carpeta la cual será interpretada como un proyecto que necesita un CLR determinado de acuerdo al grupo de aplicaciones al que pertenece. Una aplicacion agrega al prefijo de su ruta las carpetas padre [directorios virtuales] dentro del cual se encuentre. ej. SITIO:http://myserver.com:8181, DIRECTORIO VIRTUAL:/ws/huixquilucan, entonces la ruta para acceder al index.html de esta aplicaciones será: http://myserver.com:8181/ws/huixquilucan/index.html DIRECTORIO_VIRTUAL: Un directorio virtual ofrece una herramienta para tener organizados las aplicaciones. Para garantizar que no existan conflictos o colisiones entre las aplicaciones. el directorio virtual agrega la ruta de sus carpetas como prefijo de la aplicaciones despues de la url del stio. EJ: DIRECTORIO VIRTUAL:/ws/huixquilucan, entonces la aplicacion comienza a partir de la ruta: http://myserver.com:8181/ws/huixquilucan/ 3. Preparar el entorno para publicar Crear Carpeta en C:/api/servicios Habilitarle Permisos a Los usuarios Necesarios Warning: si no se configuran los permisos a la hora de abrir la aplicacion en el navegador encontrará un problema con que el CLR no tiene permisos de lectura de la carpeta donde se encuentra la aplicacion 3.5 Publicar como Aplicacion Desde a ⊞ &amp;gt; IIS &amp;gt; Conexiones &amp;gt; Sitios &amp;gt; &amp;lt;click derecho&amp;gt; &amp;gt; Agregar Sitio Web completar con la siguiente configuracion Nombre del Sitio: apirest Grupo de Aplicaciones: DefaultAppPool Ruta de Acceso Fisica: C:/api/servicios Enlace &amp;gt; Tipo: http Enlace &amp;gt; Direccion IP: Todas las Asignadas Enlace &amp;gt; Puerto: 80 Enlace &amp;gt; Nombre del Host: &amp;lt;Vacio&amp;gt; Click en Aceptar 4. Publicar desde Visual Studio En Solucion &amp;gt; Proyecto &amp;gt; &amp;lt;Clic Derecho&amp;gt; &amp;gt; Publicar elegir la siguiente configuración. En Folder Profile &amp;gt; Editar Seleccionar Metodo de Publicación : Sistema de Archivos Ubicacion de Destino : C:/api/servicios Finalmente Guardar Click en Publicar</summary></entry><entry><title type="html">Create Blog With Ikiwiki</title><link href="https://alejogtz.github.io/blog/create-a-blog-with-ikiwiki.html" rel="alternate" type="text/html" title="Create Blog With Ikiwiki" /><published>2021-08-28T00:00:00+00:00</published><updated>2021-08-28T00:00:00+00:00</updated><id>https://alejogtz.github.io/blog/Create%20a%20blog%20with%20ikiwiki</id><content type="html" xml:base="https://alejogtz.github.io/blog/create-a-blog-with-ikiwiki.html">&lt;h1 id=&quot;setup-ikiwiki-with-docker-thttpd&quot;&gt;Setup Ikiwiki with docker thttpd&lt;/h1&gt;
+
+&lt;h2 id=&quot;installation-on-ubuntu-or-debian&quot;&gt;Installation on Ubuntu or Debian&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;c&quot;&gt;# install on ubuntu&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;ikiwiki
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;create&quot;&gt;Create&lt;/h2&gt;
+&lt;p&gt;Create your wiki&lt;/p&gt;
+
+&lt;p&gt;All it takes to create a fully functional wiki using ikiwiki is running one command.&lt;/p&gt;
+
+&lt;p&gt;For more control, advanced users may prefer to set up a wiki by hand.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  % ikiwiki &lt;span class=&quot;nt&quot;&gt;--setup&lt;/span&gt; /etc/ikiwiki/auto.setup
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Or, set up a blog with ikiwiki, run this command instead.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  % ikiwiki &lt;span class=&quot;nt&quot;&gt;--setup&lt;/span&gt; /etc/ikiwiki/auto-blog.setup
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;librpc-xml-perl&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;python-docutils&lt;/code&gt; dependencies are needed.&lt;/p&gt;
+
+&lt;p&gt;Either way, it will ask you a couple of questions.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;What will the wiki be named? foo
+What revision control system to use? git
+What wiki user (or openid) will be admin? joey
+Choose a password:
+
+Then, wait for it to tell you an url for your new site..
+
+Successfully set up foo:
+    url:         http://example.com/~joey/foo
+    srcdir:      ~/foo
+    destdir:     ~/public_html/foo
+    repository:  ~/foo.git
+To modify settings, edit ~/foo.setup and then run:
+    ikiwiki --setup ~/foo.setup
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Done!&lt;/p&gt;
+
+&lt;h2 id=&quot;run-server&quot;&gt;Run server&lt;/h2&gt;
+
+&lt;p&gt;To run compiled files on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;thttpd&lt;/code&gt; server execute next command.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /home/&lt;span class=&quot;nv&quot;&gt;$USER&lt;/span&gt;/public_html/blog:/content &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 80:80 larsks/thttpd &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; /content
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, open your web browser on  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chrome.exe  http://$(curl -s ifconfig.me)&lt;/code&gt; or manually open explorer on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://127.0.01/&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Done!&lt;/p&gt;
+
+&lt;h2 id=&quot;screenshots&quot;&gt;Screenshots&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Blog&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/Yjij297.png&quot; alt=&quot;blog creado con ikiwiki&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;customizing-the-wiki&quot;&gt;Customizing the wiki&lt;/h3&gt;
+
+&lt;p&gt;There are lots of things you can configure to customize your wiki. These range from changing the wiki’s name, to enabling plugins, to banning users and locking pages.&lt;/p&gt;
+
+&lt;p&gt;If you log in as the admin user you configured earlier, and go to your Preferences page, you can click on “Setup” to customize many wiki settings and plugins.&lt;/p&gt;
+
+&lt;p&gt;Some settings cannot be configured on the web, for security reasons or because misconfiguring them could break the wiki. To change these settings, you can manually edit the setup file, which is named something like “foo.setup”. The file lists all available configuration settings and gives a brief description of each.&lt;/p&gt;
+
+&lt;p&gt;After making changes to this file, you need to tell ikiwiki to use it:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;% ikiwiki &lt;span class=&quot;nt&quot;&gt;--setup&lt;/span&gt; foo.setup
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Alternatively, you can ask ikiwiki to change settings in the file for you:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;% ikiwiki &lt;span class=&quot;nt&quot;&gt;--changesetup&lt;/span&gt; foo.setup &lt;span class=&quot;nt&quot;&gt;--plugin&lt;/span&gt; goodstuff
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;See &lt;a href=&quot;https://ikiwiki.info/usage/&quot;&gt;usage&lt;/a&gt; for more options.&lt;/p&gt;
+
+&lt;h2 id=&quot;customizing-file-locations&quot;&gt;Customizing file locations&lt;/h2&gt;
+
+&lt;p&gt;As a wiki compiler, ikiwiki builds a wiki from files in a source directory, and outputs the files to a destination directory. The source directory is a working copy checked out from the version control system repository.&lt;/p&gt;
+
+&lt;p&gt;When you used auto.setup, ikiwiki put the source directory, destination directory, and repository in your home directory, and told you the location of each. Those locations were chosen to work without customization, but you might want to move them to different directories.&lt;/p&gt;
+
+&lt;p&gt;First, move the destination directory and repository around.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;% &lt;span class=&quot;nb&quot;&gt;mv &lt;/span&gt;public_html/foo /srv/web/foo.com
+% &lt;span class=&quot;nb&quot;&gt;mv &lt;/span&gt;foo.git /srv/git/foo.git
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If you moved the repository to a new location, checkouts pointing at the old location won’t work, and the easiest way to deal with this is to delete them and re-checkout from the new repository location.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;% &lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-rf&lt;/span&gt; foo
+% git clone /srv/git/foo.git
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Finally, edit the setup file. Modify the settings for srcdir, destdir, url, cgiurl, cgi_wrapper, git_wrapper, etc to reflect where you moved things. Remember to run ikiwiki –setup after editing the setup file.&lt;/p&gt;
+
+&lt;h2 id=&quot;resources&quot;&gt;Resources&lt;/h2&gt;
+
+&lt;p&gt;Next resources can be used for customize site&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;CSS market for Ikiwiki sites&lt;/strong&gt;: https://ikiwiki.info/css_market/&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Ikiwiki Themes&lt;/strong&gt;:
+    &lt;ul&gt;
+      &lt;li&gt;https://ikiwiki.info/themes/&lt;/li&gt;
+      &lt;li&gt;https://ikiwiki.info/theme_market/&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Alejo Gutierrez</name></author><category term="tutorials" /><summary type="html">Setup Ikiwiki with docker thttpd Installation on Ubuntu or Debian # install on ubuntu $ apt-get install ikiwiki Create Create your wiki All it takes to create a fully functional wiki using ikiwiki is running one command. For more control, advanced users may prefer to set up a wiki by hand. % ikiwiki --setup /etc/ikiwiki/auto.setup Or, set up a blog with ikiwiki, run this command instead. % ikiwiki --setup /etc/ikiwiki/auto-blog.setup librpc-xml-perl and python-docutils dependencies are needed. Either way, it will ask you a couple of questions. What will the wiki be named? foo What revision control system to use? git What wiki user (or openid) will be admin? joey Choose a password: Then, wait for it to tell you an url for your new site.. Successfully set up foo: url: http://example.com/~joey/foo srcdir: ~/foo destdir: ~/public_html/foo repository: ~/foo.git To modify settings, edit ~/foo.setup and then run: ikiwiki --setup ~/foo.setup Done! Run server To run compiled files on thttpd server execute next command. docker run -v /home/$USER/public_html/blog:/content -p 80:80 larsks/thttpd -d /content Now, open your web browser on chrome.exe http://$(curl -s ifconfig.me) or manually open explorer on http://127.0.01/ Done! Screenshots Blog Customizing the wiki There are lots of things you can configure to customize your wiki. These range from changing the wiki’s name, to enabling plugins, to banning users and locking pages. If you log in as the admin user you configured earlier, and go to your Preferences page, you can click on “Setup” to customize many wiki settings and plugins. Some settings cannot be configured on the web, for security reasons or because misconfiguring them could break the wiki. To change these settings, you can manually edit the setup file, which is named something like “foo.setup”. The file lists all available configuration settings and gives a brief description of each. After making changes to this file, you need to tell ikiwiki to use it: % ikiwiki --setup foo.setup Alternatively, you can ask ikiwiki to change settings in the file for you: % ikiwiki --changesetup foo.setup --plugin goodstuff See usage for more options. Customizing file locations As a wiki compiler, ikiwiki builds a wiki from files in a source directory, and outputs the files to a destination directory. The source directory is a working copy checked out from the version control system repository. When you used auto.setup, ikiwiki put the source directory, destination directory, and repository in your home directory, and told you the location of each. Those locations were chosen to work without customization, but you might want to move them to different directories. First, move the destination directory and repository around. % mv public_html/foo /srv/web/foo.com % mv foo.git /srv/git/foo.git If you moved the repository to a new location, checkouts pointing at the old location won’t work, and the easiest way to deal with this is to delete them and re-checkout from the new repository location. % rm -rf foo % git clone /srv/git/foo.git Finally, edit the setup file. Modify the settings for srcdir, destdir, url, cgiurl, cgi_wrapper, git_wrapper, etc to reflect where you moved things. Remember to run ikiwiki –setup after editing the setup file. Resources Next resources can be used for customize site CSS market for Ikiwiki sites: https://ikiwiki.info/css_market/ Ikiwiki Themes: https://ikiwiki.info/themes/ https://ikiwiki.info/theme_market/</summary></entry><entry><title type="html">How To Know Your Public Ip</title><link href="https://alejogtz.github.io/blog/how-to-know-your-public-ip.html" rel="alternate" type="text/html" title="How To Know Your Public Ip" /><published>2019-08-09T00:00:00+00:00</published><updated>2019-08-09T00:00:00+00:00</updated><id>https://alejogtz.github.io/blog/How%20to%20know%20your%20public%20ip</id><content type="html" xml:base="https://alejogtz.github.io/blog/how-to-know-your-public-ip.html">&lt;h2 id=&quot;make-a-curl-request-to-the-following-site&quot;&gt;Make a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;curl&lt;/code&gt; request to the following site:&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; ifconfig.me
+187.154.50.16
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Done!&lt;/p&gt;</content><author><name>Alejo Gutierrez</name></author><category term="linux" /><summary type="html">Make a curl request to the following site: $ curl -s ifconfig.me 187.154.50.16 Done!</summary></entry></feed>

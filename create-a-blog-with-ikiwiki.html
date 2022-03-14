@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Create Blog With Ikiwiki</title><!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v3.9.1" />
+<meta property="og:title" content="Create Blog With Ikiwiki" />
+<meta name="author" content="Alejo Gutierrez" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Setup Ikiwiki with docker thttpd Installation on Ubuntu or Debian # install on ubuntu $ apt-get install ikiwiki Create Create your wiki All it takes to create a fully functional wiki using ikiwiki is running one command. For more control, advanced users may prefer to set up a wiki by hand. % ikiwiki --setup /etc/ikiwiki/auto.setup Or, set up a blog with ikiwiki, run this command instead. % ikiwiki --setup /etc/ikiwiki/auto-blog.setup librpc-xml-perl and python-docutils dependencies are needed. Either way, it will ask you a couple of questions. What will the wiki be named? foo What revision control system to use? git What wiki user (or openid) will be admin? joey Choose a password: Then, wait for it to tell you an url for your new site.. Successfully set up foo: url: http://example.com/~joey/foo srcdir: ~/foo destdir: ~/public_html/foo repository: ~/foo.git To modify settings, edit ~/foo.setup and then run: ikiwiki --setup ~/foo.setup Done! Run server To run compiled files on thttpd server execute next command. docker run -v /home/$USER/public_html/blog:/content -p 80:80 larsks/thttpd -d /content Now, open your web browser on chrome.exe http://$(curl -s ifconfig.me) or manually open explorer on http://127.0.01/ Done! Screenshots Blog Customizing the wiki There are lots of things you can configure to customize your wiki. These range from changing the wiki’s name, to enabling plugins, to banning users and locking pages. If you log in as the admin user you configured earlier, and go to your Preferences page, you can click on “Setup” to customize many wiki settings and plugins. Some settings cannot be configured on the web, for security reasons or because misconfiguring them could break the wiki. To change these settings, you can manually edit the setup file, which is named something like “foo.setup”. The file lists all available configuration settings and gives a brief description of each. After making changes to this file, you need to tell ikiwiki to use it: % ikiwiki --setup foo.setup Alternatively, you can ask ikiwiki to change settings in the file for you: % ikiwiki --changesetup foo.setup --plugin goodstuff See usage for more options. Customizing file locations As a wiki compiler, ikiwiki builds a wiki from files in a source directory, and outputs the files to a destination directory. The source directory is a working copy checked out from the version control system repository. When you used auto.setup, ikiwiki put the source directory, destination directory, and repository in your home directory, and told you the location of each. Those locations were chosen to work without customization, but you might want to move them to different directories. First, move the destination directory and repository around. % mv public_html/foo /srv/web/foo.com % mv foo.git /srv/git/foo.git If you moved the repository to a new location, checkouts pointing at the old location won’t work, and the easiest way to deal with this is to delete them and re-checkout from the new repository location. % rm -rf foo % git clone /srv/git/foo.git Finally, edit the setup file. Modify the settings for srcdir, destdir, url, cgiurl, cgi_wrapper, git_wrapper, etc to reflect where you moved things. Remember to run ikiwiki –setup after editing the setup file. Resources Next resources can be used for customize site CSS market for Ikiwiki sites: https://ikiwiki.info/css_market/ Ikiwiki Themes: https://ikiwiki.info/themes/ https://ikiwiki.info/theme_market/" />
+<meta property="og:description" content="Setup Ikiwiki with docker thttpd Installation on Ubuntu or Debian # install on ubuntu $ apt-get install ikiwiki Create Create your wiki All it takes to create a fully functional wiki using ikiwiki is running one command. For more control, advanced users may prefer to set up a wiki by hand. % ikiwiki --setup /etc/ikiwiki/auto.setup Or, set up a blog with ikiwiki, run this command instead. % ikiwiki --setup /etc/ikiwiki/auto-blog.setup librpc-xml-perl and python-docutils dependencies are needed. Either way, it will ask you a couple of questions. What will the wiki be named? foo What revision control system to use? git What wiki user (or openid) will be admin? joey Choose a password: Then, wait for it to tell you an url for your new site.. Successfully set up foo: url: http://example.com/~joey/foo srcdir: ~/foo destdir: ~/public_html/foo repository: ~/foo.git To modify settings, edit ~/foo.setup and then run: ikiwiki --setup ~/foo.setup Done! Run server To run compiled files on thttpd server execute next command. docker run -v /home/$USER/public_html/blog:/content -p 80:80 larsks/thttpd -d /content Now, open your web browser on chrome.exe http://$(curl -s ifconfig.me) or manually open explorer on http://127.0.01/ Done! Screenshots Blog Customizing the wiki There are lots of things you can configure to customize your wiki. These range from changing the wiki’s name, to enabling plugins, to banning users and locking pages. If you log in as the admin user you configured earlier, and go to your Preferences page, you can click on “Setup” to customize many wiki settings and plugins. Some settings cannot be configured on the web, for security reasons or because misconfiguring them could break the wiki. To change these settings, you can manually edit the setup file, which is named something like “foo.setup”. The file lists all available configuration settings and gives a brief description of each. After making changes to this file, you need to tell ikiwiki to use it: % ikiwiki --setup foo.setup Alternatively, you can ask ikiwiki to change settings in the file for you: % ikiwiki --changesetup foo.setup --plugin goodstuff See usage for more options. Customizing file locations As a wiki compiler, ikiwiki builds a wiki from files in a source directory, and outputs the files to a destination directory. The source directory is a working copy checked out from the version control system repository. When you used auto.setup, ikiwiki put the source directory, destination directory, and repository in your home directory, and told you the location of each. Those locations were chosen to work without customization, but you might want to move them to different directories. First, move the destination directory and repository around. % mv public_html/foo /srv/web/foo.com % mv foo.git /srv/git/foo.git If you moved the repository to a new location, checkouts pointing at the old location won’t work, and the easiest way to deal with this is to delete them and re-checkout from the new repository location. % rm -rf foo % git clone /srv/git/foo.git Finally, edit the setup file. Modify the settings for srcdir, destdir, url, cgiurl, cgi_wrapper, git_wrapper, etc to reflect where you moved things. Remember to run ikiwiki –setup after editing the setup file. Resources Next resources can be used for customize site CSS market for Ikiwiki sites: https://ikiwiki.info/css_market/ Ikiwiki Themes: https://ikiwiki.info/themes/ https://ikiwiki.info/theme_market/" />
+<link rel="canonical" href="https://alejogtz.github.io/blog/create-a-blog-with-ikiwiki.html" />
+<meta property="og:url" content="https://alejogtz.github.io/blog/create-a-blog-with-ikiwiki.html" />
+<meta property="og:site_name" content="Blog!" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-08-28T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Create Blog With Ikiwiki" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Alejo Gutierrez"},"description":"Setup Ikiwiki with docker thttpd Installation on Ubuntu or Debian # install on ubuntu $ apt-get install ikiwiki Create Create your wiki All it takes to create a fully functional wiki using ikiwiki is running one command. For more control, advanced users may prefer to set up a wiki by hand. % ikiwiki --setup /etc/ikiwiki/auto.setup Or, set up a blog with ikiwiki, run this command instead. % ikiwiki --setup /etc/ikiwiki/auto-blog.setup librpc-xml-perl and python-docutils dependencies are needed. Either way, it will ask you a couple of questions. What will the wiki be named? foo What revision control system to use? git What wiki user (or openid) will be admin? joey Choose a password: Then, wait for it to tell you an url for your new site.. Successfully set up foo: url: http://example.com/~joey/foo srcdir: ~/foo destdir: ~/public_html/foo repository: ~/foo.git To modify settings, edit ~/foo.setup and then run: ikiwiki --setup ~/foo.setup Done! Run server To run compiled files on thttpd server execute next command. docker run -v /home/$USER/public_html/blog:/content -p 80:80 larsks/thttpd -d /content Now, open your web browser on chrome.exe http://$(curl -s ifconfig.me) or manually open explorer on http://127.0.01/ Done! Screenshots Blog Customizing the wiki There are lots of things you can configure to customize your wiki. These range from changing the wiki’s name, to enabling plugins, to banning users and locking pages. If you log in as the admin user you configured earlier, and go to your Preferences page, you can click on “Setup” to customize many wiki settings and plugins. Some settings cannot be configured on the web, for security reasons or because misconfiguring them could break the wiki. To change these settings, you can manually edit the setup file, which is named something like “foo.setup”. The file lists all available configuration settings and gives a brief description of each. After making changes to this file, you need to tell ikiwiki to use it: % ikiwiki --setup foo.setup Alternatively, you can ask ikiwiki to change settings in the file for you: % ikiwiki --changesetup foo.setup --plugin goodstuff See usage for more options. Customizing file locations As a wiki compiler, ikiwiki builds a wiki from files in a source directory, and outputs the files to a destination directory. The source directory is a working copy checked out from the version control system repository. When you used auto.setup, ikiwiki put the source directory, destination directory, and repository in your home directory, and told you the location of each. Those locations were chosen to work without customization, but you might want to move them to different directories. First, move the destination directory and repository around. % mv public_html/foo /srv/web/foo.com % mv foo.git /srv/git/foo.git If you moved the repository to a new location, checkouts pointing at the old location won’t work, and the easiest way to deal with this is to delete them and re-checkout from the new repository location. % rm -rf foo % git clone /srv/git/foo.git Finally, edit the setup file. Modify the settings for srcdir, destdir, url, cgiurl, cgi_wrapper, git_wrapper, etc to reflect where you moved things. Remember to run ikiwiki –setup after editing the setup file. Resources Next resources can be used for customize site CSS market for Ikiwiki sites: https://ikiwiki.info/css_market/ Ikiwiki Themes: https://ikiwiki.info/themes/ https://ikiwiki.info/theme_market/","url":"https://alejogtz.github.io/blog/create-a-blog-with-ikiwiki.html","@type":"BlogPosting","headline":"Create Blog With Ikiwiki","dateModified":"2021-08-28T00:00:00+00:00","datePublished":"2021-08-28T00:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://alejogtz.github.io/blog/create-a-blog-with-ikiwiki.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link type="application/atom+xml" rel="alternate" href="https://alejogtz.github.io/blog/feed.xml" title="Blog!" /><link rel="shortcut icon" type="image/x-icon" href="/blog/logo.png" />
+  <link rel="stylesheet" href="/blog/assets/css/main.css" />
+
+  <!-- <link rel="stylesheet" href="https://unpkg.com/basscss@8.0.2/css/basscss.min.css" /> -->
+</head><body a="auto">
+    <main class="page-content" aria-label="Content">
+      <div class="w">
+        <a href="/blog/">..</a><article>
+  <p class="post-meta">
+    <time datetime="2021-08-28 00:00:00 +0000">2021-08-28</time>
+  </p>
+  
+  <h1>Create Blog With Ikiwiki</h1>
+
+  <h1 id="setup-ikiwiki-with-docker-thttpd">Setup Ikiwiki with docker thttpd</h1>
+
+<h2 id="installation-on-ubuntu-or-debian">Installation on Ubuntu or Debian</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c"># install on ubuntu</span>
+  <span class="nv">$ </span>apt-get <span class="nb">install </span>ikiwiki
+</code></pre></div></div>
+
+<h2 id="create">Create</h2>
+<p>Create your wiki</p>
+
+<p>All it takes to create a fully functional wiki using ikiwiki is running one command.</p>
+
+<p>For more control, advanced users may prefer to set up a wiki by hand.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  % ikiwiki <span class="nt">--setup</span> /etc/ikiwiki/auto.setup
+</code></pre></div></div>
+
+<p>Or, set up a blog with ikiwiki, run this command instead.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  % ikiwiki <span class="nt">--setup</span> /etc/ikiwiki/auto-blog.setup
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">librpc-xml-perl</code> and <code class="language-plaintext highlighter-rouge">python-docutils</code> dependencies are needed.</p>
+
+<p>Either way, it will ask you a couple of questions.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>What will the wiki be named? foo
+What revision control system to use? git
+What wiki user (or openid) will be admin? joey
+Choose a password:
+
+Then, wait for it to tell you an url for your new site..
+
+Successfully set up foo:
+    url:         http://example.com/~joey/foo
+    srcdir:      ~/foo
+    destdir:     ~/public_html/foo
+    repository:  ~/foo.git
+To modify settings, edit ~/foo.setup and then run:
+    ikiwiki --setup ~/foo.setup
+</code></pre></div></div>
+
+<p>Done!</p>
+
+<h2 id="run-server">Run server</h2>
+
+<p>To run compiled files on <code class="language-plaintext highlighter-rouge">thttpd</code> server execute next command.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run <span class="nt">-v</span> /home/<span class="nv">$USER</span>/public_html/blog:/content <span class="nt">-p</span> 80:80 larsks/thttpd <span class="nt">-d</span> /content
+</code></pre></div></div>
+
+<p>Now, open your web browser on  <code class="language-plaintext highlighter-rouge">chrome.exe  http://$(curl -s ifconfig.me)</code> or manually open explorer on <code class="language-plaintext highlighter-rouge">http://127.0.01/</code></p>
+
+<p>Done!</p>
+
+<h2 id="screenshots">Screenshots</h2>
+
+<p><strong>Blog</strong></p>
+
+<p><img src="https://i.imgur.com/Yjij297.png" alt="blog creado con ikiwiki" /></p>
+
+<h3 id="customizing-the-wiki">Customizing the wiki</h3>
+
+<p>There are lots of things you can configure to customize your wiki. These range from changing the wiki’s name, to enabling plugins, to banning users and locking pages.</p>
+
+<p>If you log in as the admin user you configured earlier, and go to your Preferences page, you can click on “Setup” to customize many wiki settings and plugins.</p>
+
+<p>Some settings cannot be configured on the web, for security reasons or because misconfiguring them could break the wiki. To change these settings, you can manually edit the setup file, which is named something like “foo.setup”. The file lists all available configuration settings and gives a brief description of each.</p>
+
+<p>After making changes to this file, you need to tell ikiwiki to use it:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>% ikiwiki <span class="nt">--setup</span> foo.setup
+</code></pre></div></div>
+
+<p>Alternatively, you can ask ikiwiki to change settings in the file for you:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>% ikiwiki <span class="nt">--changesetup</span> foo.setup <span class="nt">--plugin</span> goodstuff
+</code></pre></div></div>
+
+<p>See <a href="https://ikiwiki.info/usage/">usage</a> for more options.</p>
+
+<h2 id="customizing-file-locations">Customizing file locations</h2>
+
+<p>As a wiki compiler, ikiwiki builds a wiki from files in a source directory, and outputs the files to a destination directory. The source directory is a working copy checked out from the version control system repository.</p>
+
+<p>When you used auto.setup, ikiwiki put the source directory, destination directory, and repository in your home directory, and told you the location of each. Those locations were chosen to work without customization, but you might want to move them to different directories.</p>
+
+<p>First, move the destination directory and repository around.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>% <span class="nb">mv </span>public_html/foo /srv/web/foo.com
+% <span class="nb">mv </span>foo.git /srv/git/foo.git
+</code></pre></div></div>
+
+<p>If you moved the repository to a new location, checkouts pointing at the old location won’t work, and the easiest way to deal with this is to delete them and re-checkout from the new repository location.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>% <span class="nb">rm</span> <span class="nt">-rf</span> foo
+% git clone /srv/git/foo.git
+</code></pre></div></div>
+
+<p>Finally, edit the setup file. Modify the settings for srcdir, destdir, url, cgiurl, cgi_wrapper, git_wrapper, etc to reflect where you moved things. Remember to run ikiwiki –setup after editing the setup file.</p>
+
+<h2 id="resources">Resources</h2>
+
+<p>Next resources can be used for customize site</p>
+
+<ul>
+  <li><strong>CSS market for Ikiwiki sites</strong>: https://ikiwiki.info/css_market/</li>
+  <li><strong>Ikiwiki Themes</strong>:
+    <ul>
+      <li>https://ikiwiki.info/themes/</li>
+      <li>https://ikiwiki.info/theme_market/</li>
+    </ul>
+  </li>
+</ul>
+
+
+</article>
+      </div>
+    </main>
+  </body>
+</html>

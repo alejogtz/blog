@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Configurar Iis Server</title><!-- Begin Jekyll SEO tag v2.7.1 -->
+<meta name="generator" content="Jekyll v3.9.1" />
+<meta property="og:title" content="Configurar Iis Server" />
+<meta name="author" content="Alejo Gutierrez" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Configurar Servidor IIS 1. Habilitar los Servicios en ⊞ &gt; Caracteristicas de Windows 2. Crear un Grupo de Aplicaciones Un grupo de aplicaciones están asociados a procesos de trabajo, contienen una o más aplicaciones y proporcionan aislamiento entre aplicaciones Ir a ⊞ &gt; IIS &gt; Conexiones &gt; Grupos aplicaciones &gt; Agregar...aplicaciones y elegir Campo Valor Comentario Nombre &lt;&lt;Nombre&gt;&gt; El nombre que desees y que reprensente ese grupo de aplicaciones Version .Net CLR versión 4.0.3.. Version Common Languaje Runtime con el cual se ejecutarán las aplicaciones de este grupo Modo Canalizacion Integrada X_X 2.1 Creación de un SITIO,APLICACION y DIRECTORIO VIRTUAL SITIO: Un sitio es el contenedor de aplicaciones. Establecen el puerto de red por la cual las aplicaciones que contiene atenderán sus solicitudes. ej. http://myserver.com:8181,http://myserver.com:80,http://myserver.com:9090 APLICACION: Una aplicación es una carpeta la cual será interpretada como un proyecto que necesita un CLR determinado de acuerdo al grupo de aplicaciones al que pertenece. Una aplicacion agrega al prefijo de su ruta las carpetas padre [directorios virtuales] dentro del cual se encuentre. ej. SITIO:http://myserver.com:8181, DIRECTORIO VIRTUAL:/ws/huixquilucan, entonces la ruta para acceder al index.html de esta aplicaciones será: http://myserver.com:8181/ws/huixquilucan/index.html DIRECTORIO_VIRTUAL: Un directorio virtual ofrece una herramienta para tener organizados las aplicaciones. Para garantizar que no existan conflictos o colisiones entre las aplicaciones. el directorio virtual agrega la ruta de sus carpetas como prefijo de la aplicaciones despues de la url del stio. EJ: DIRECTORIO VIRTUAL:/ws/huixquilucan, entonces la aplicacion comienza a partir de la ruta: http://myserver.com:8181/ws/huixquilucan/ 3. Preparar el entorno para publicar Crear Carpeta en C:/api/servicios Habilitarle Permisos a Los usuarios Necesarios Warning: si no se configuran los permisos a la hora de abrir la aplicacion en el navegador encontrará un problema con que el CLR no tiene permisos de lectura de la carpeta donde se encuentra la aplicacion 3.5 Publicar como Aplicacion Desde a ⊞ &gt; IIS &gt; Conexiones &gt; Sitios &gt; &lt;click derecho&gt; &gt; Agregar Sitio Web completar con la siguiente configuracion Nombre del Sitio: apirest Grupo de Aplicaciones: DefaultAppPool Ruta de Acceso Fisica: C:/api/servicios Enlace &gt; Tipo: http Enlace &gt; Direccion IP: Todas las Asignadas Enlace &gt; Puerto: 80 Enlace &gt; Nombre del Host: &lt;Vacio&gt; Click en Aceptar 4. Publicar desde Visual Studio En Solucion &gt; Proyecto &gt; &lt;Clic Derecho&gt; &gt; Publicar elegir la siguiente configuración. En Folder Profile &gt; Editar Seleccionar Metodo de Publicación : Sistema de Archivos Ubicacion de Destino : C:/api/servicios Finalmente Guardar Click en Publicar" />
+<meta property="og:description" content="Configurar Servidor IIS 1. Habilitar los Servicios en ⊞ &gt; Caracteristicas de Windows 2. Crear un Grupo de Aplicaciones Un grupo de aplicaciones están asociados a procesos de trabajo, contienen una o más aplicaciones y proporcionan aislamiento entre aplicaciones Ir a ⊞ &gt; IIS &gt; Conexiones &gt; Grupos aplicaciones &gt; Agregar...aplicaciones y elegir Campo Valor Comentario Nombre &lt;&lt;Nombre&gt;&gt; El nombre que desees y que reprensente ese grupo de aplicaciones Version .Net CLR versión 4.0.3.. Version Common Languaje Runtime con el cual se ejecutarán las aplicaciones de este grupo Modo Canalizacion Integrada X_X 2.1 Creación de un SITIO,APLICACION y DIRECTORIO VIRTUAL SITIO: Un sitio es el contenedor de aplicaciones. Establecen el puerto de red por la cual las aplicaciones que contiene atenderán sus solicitudes. ej. http://myserver.com:8181,http://myserver.com:80,http://myserver.com:9090 APLICACION: Una aplicación es una carpeta la cual será interpretada como un proyecto que necesita un CLR determinado de acuerdo al grupo de aplicaciones al que pertenece. Una aplicacion agrega al prefijo de su ruta las carpetas padre [directorios virtuales] dentro del cual se encuentre. ej. SITIO:http://myserver.com:8181, DIRECTORIO VIRTUAL:/ws/huixquilucan, entonces la ruta para acceder al index.html de esta aplicaciones será: http://myserver.com:8181/ws/huixquilucan/index.html DIRECTORIO_VIRTUAL: Un directorio virtual ofrece una herramienta para tener organizados las aplicaciones. Para garantizar que no existan conflictos o colisiones entre las aplicaciones. el directorio virtual agrega la ruta de sus carpetas como prefijo de la aplicaciones despues de la url del stio. EJ: DIRECTORIO VIRTUAL:/ws/huixquilucan, entonces la aplicacion comienza a partir de la ruta: http://myserver.com:8181/ws/huixquilucan/ 3. Preparar el entorno para publicar Crear Carpeta en C:/api/servicios Habilitarle Permisos a Los usuarios Necesarios Warning: si no se configuran los permisos a la hora de abrir la aplicacion en el navegador encontrará un problema con que el CLR no tiene permisos de lectura de la carpeta donde se encuentra la aplicacion 3.5 Publicar como Aplicacion Desde a ⊞ &gt; IIS &gt; Conexiones &gt; Sitios &gt; &lt;click derecho&gt; &gt; Agregar Sitio Web completar con la siguiente configuracion Nombre del Sitio: apirest Grupo de Aplicaciones: DefaultAppPool Ruta de Acceso Fisica: C:/api/servicios Enlace &gt; Tipo: http Enlace &gt; Direccion IP: Todas las Asignadas Enlace &gt; Puerto: 80 Enlace &gt; Nombre del Host: &lt;Vacio&gt; Click en Aceptar 4. Publicar desde Visual Studio En Solucion &gt; Proyecto &gt; &lt;Clic Derecho&gt; &gt; Publicar elegir la siguiente configuración. En Folder Profile &gt; Editar Seleccionar Metodo de Publicación : Sistema de Archivos Ubicacion de Destino : C:/api/servicios Finalmente Guardar Click en Publicar" />
+<link rel="canonical" href="https://alejogtz.github.io/blog/configurar-servidor-iis-en-windows.html" />
+<meta property="og:url" content="https://alejogtz.github.io/blog/configurar-servidor-iis-en-windows.html" />
+<meta property="og:site_name" content="Blog!" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-08-29T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Configurar Iis Server" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Alejo Gutierrez"},"description":"Configurar Servidor IIS 1. Habilitar los Servicios en ⊞ &gt; Caracteristicas de Windows 2. Crear un Grupo de Aplicaciones Un grupo de aplicaciones están asociados a procesos de trabajo, contienen una o más aplicaciones y proporcionan aislamiento entre aplicaciones Ir a ⊞ &gt; IIS &gt; Conexiones &gt; Grupos aplicaciones &gt; Agregar...aplicaciones y elegir Campo Valor Comentario Nombre &lt;&lt;Nombre&gt;&gt; El nombre que desees y que reprensente ese grupo de aplicaciones Version .Net CLR versión 4.0.3.. Version Common Languaje Runtime con el cual se ejecutarán las aplicaciones de este grupo Modo Canalizacion Integrada X_X 2.1 Creación de un SITIO,APLICACION y DIRECTORIO VIRTUAL SITIO: Un sitio es el contenedor de aplicaciones. Establecen el puerto de red por la cual las aplicaciones que contiene atenderán sus solicitudes. ej. http://myserver.com:8181,http://myserver.com:80,http://myserver.com:9090 APLICACION: Una aplicación es una carpeta la cual será interpretada como un proyecto que necesita un CLR determinado de acuerdo al grupo de aplicaciones al que pertenece. Una aplicacion agrega al prefijo de su ruta las carpetas padre [directorios virtuales] dentro del cual se encuentre. ej. SITIO:http://myserver.com:8181, DIRECTORIO VIRTUAL:/ws/huixquilucan, entonces la ruta para acceder al index.html de esta aplicaciones será: http://myserver.com:8181/ws/huixquilucan/index.html DIRECTORIO_VIRTUAL: Un directorio virtual ofrece una herramienta para tener organizados las aplicaciones. Para garantizar que no existan conflictos o colisiones entre las aplicaciones. el directorio virtual agrega la ruta de sus carpetas como prefijo de la aplicaciones despues de la url del stio. EJ: DIRECTORIO VIRTUAL:/ws/huixquilucan, entonces la aplicacion comienza a partir de la ruta: http://myserver.com:8181/ws/huixquilucan/ 3. Preparar el entorno para publicar Crear Carpeta en C:/api/servicios Habilitarle Permisos a Los usuarios Necesarios Warning: si no se configuran los permisos a la hora de abrir la aplicacion en el navegador encontrará un problema con que el CLR no tiene permisos de lectura de la carpeta donde se encuentra la aplicacion 3.5 Publicar como Aplicacion Desde a ⊞ &gt; IIS &gt; Conexiones &gt; Sitios &gt; &lt;click derecho&gt; &gt; Agregar Sitio Web completar con la siguiente configuracion Nombre del Sitio: apirest Grupo de Aplicaciones: DefaultAppPool Ruta de Acceso Fisica: C:/api/servicios Enlace &gt; Tipo: http Enlace &gt; Direccion IP: Todas las Asignadas Enlace &gt; Puerto: 80 Enlace &gt; Nombre del Host: &lt;Vacio&gt; Click en Aceptar 4. Publicar desde Visual Studio En Solucion &gt; Proyecto &gt; &lt;Clic Derecho&gt; &gt; Publicar elegir la siguiente configuración. En Folder Profile &gt; Editar Seleccionar Metodo de Publicación : Sistema de Archivos Ubicacion de Destino : C:/api/servicios Finalmente Guardar Click en Publicar","url":"https://alejogtz.github.io/blog/configurar-servidor-iis-en-windows.html","@type":"BlogPosting","headline":"Configurar Iis Server","dateModified":"2021-08-29T00:00:00+00:00","datePublished":"2021-08-29T00:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://alejogtz.github.io/blog/configurar-servidor-iis-en-windows.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link type="application/atom+xml" rel="alternate" href="https://alejogtz.github.io/blog/feed.xml" title="Blog!" /><link rel="shortcut icon" type="image/x-icon" href="/blog/logo.png" />
+  <link rel="stylesheet" href="/blog/assets/css/main.css" />
+
+  <!-- <link rel="stylesheet" href="https://unpkg.com/basscss@8.0.2/css/basscss.min.css" /> -->
+</head><body a="auto">
+    <main class="page-content" aria-label="Content">
+      <div class="w">
+        <a href="/blog/">..</a><article>
+  <p class="post-meta">
+    <time datetime="2021-08-29 00:00:00 +0000">2021-08-29</time>
+  </p>
+  
+  <h1>Configurar Iis Server</h1>
+
+  <h1 id="configurar-servidor-iis">Configurar Servidor IIS</h1>
+<h2 id="1-habilitar-los-servicios-en---caracteristicas-de-windows">1. Habilitar los Servicios en <code class="language-plaintext highlighter-rouge">⊞ &gt; Caracteristicas de Windows</code></h2>
+
+<p><img src="https://i.imgur.com/5tRdE71.png" alt="Caracteristicas de windows" /></p>
+
+<h2 id="2-crear-un-grupo-de-aplicaciones">2. Crear un Grupo de Aplicaciones</h2>
+
+<blockquote>
+  <p>Un grupo de aplicaciones están asociados a procesos de trabajo, contienen una o más aplicaciones y <strong>proporcionan aislamiento entre aplicaciones</strong></p>
+</blockquote>
+
+<p>Ir a <code class="language-plaintext highlighter-rouge">⊞ &gt; IIS &gt; Conexiones &gt; Grupos aplicaciones &gt; Agregar...aplicaciones</code> y elegir</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Campo</th>
+      <th>Valor</th>
+      <th>Comentario</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Nombre</td>
+      <td><code class="language-plaintext highlighter-rouge">&lt;&lt;Nombre&gt;&gt;</code></td>
+      <td><em>El nombre que desees y que reprensente ese grupo de aplicaciones</em></td>
+    </tr>
+    <tr>
+      <td>Version</td>
+      <td>.Net CLR versión 4.0.3..</td>
+      <td><em>Version Common Languaje Runtime con el cual se ejecutarán las aplicaciones de este grupo</em></td>
+    </tr>
+    <tr>
+      <td>Modo Canalizacion</td>
+      <td>Integrada</td>
+      <td><em>X_X</em></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="21-creación-de-un-sitioaplicacion-y-directorio-virtual">2.1 Creación de un <code class="language-plaintext highlighter-rouge">SITIO</code>,<code class="language-plaintext highlighter-rouge">APLICACION</code> y <code class="language-plaintext highlighter-rouge">DIRECTORIO VIRTUAL</code></h2>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">SITIO</code>: Un sitio es el contenedor de aplicaciones. Establecen el puerto de red por la cual las aplicaciones que contiene atenderán sus solicitudes. ej. http://myserver.com:8181,http://myserver.com:80,http://myserver.com:9090</p>
+</blockquote>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">APLICACION</code>: Una aplicación es una carpeta la cual será interpretada como un proyecto que necesita un CLR determinado de acuerdo al grupo de aplicaciones al que pertenece.
+Una aplicacion agrega al prefijo de su ruta las carpetas padre [<em>directorios virtuales</em>] dentro del cual se encuentre. ej. <strong>SITIO:</strong><code class="language-plaintext highlighter-rouge">http://myserver.com:8181</code>, <strong>DIRECTORIO VIRTUAL:</strong><code class="language-plaintext highlighter-rouge">/ws/huixquilucan</code>, entonces la ruta para acceder al <code class="language-plaintext highlighter-rouge">index.html</code> de esta aplicaciones será: <code class="language-plaintext highlighter-rouge">http://myserver.com:8181/ws/huixquilucan/index.html</code></p>
+</blockquote>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">DIRECTORIO_VIRTUAL</code>:  Un directorio virtual ofrece una herramienta para tener organizados las aplicaciones. Para garantizar que no existan conflictos o colisiones entre las aplicaciones. el directorio virtual agrega la ruta de sus carpetas como prefijo de la aplicaciones despues de la url del stio. EJ: <strong>DIRECTORIO VIRTUAL:</strong><code class="language-plaintext highlighter-rouge">/ws/huixquilucan</code>, entonces la aplicacion comienza a partir de la ruta: <code class="language-plaintext highlighter-rouge">http://myserver.com:8181/ws/huixquilucan/</code></p>
+</blockquote>
+
+<h2 id="3-preparar-el-entorno-para-publicar">3. Preparar el entorno para publicar</h2>
+<ol>
+  <li>Crear Carpeta en <code class="language-plaintext highlighter-rouge">C:/api/servicios</code></li>
+  <li>Habilitarle Permisos a Los usuarios Necesarios</li>
+</ol>
+
+<blockquote>
+  <p><strong>Warning:</strong> si no se configuran los permisos a la hora de abrir la aplicacion en el navegador encontrará un problema con que el CLR no tiene permisos de lectura de la carpeta donde se encuentra la aplicacion</p>
+</blockquote>
+
+<h2 id="35-publicar-como-aplicacion">3.5 Publicar como Aplicacion</h2>
+<ol>
+  <li>Desde a <code class="language-plaintext highlighter-rouge">⊞ &gt; IIS &gt; Conexiones &gt; Sitios &gt; &lt;click derecho&gt; &gt; Agregar Sitio Web </code> completar con la siguiente configuracion
+    <ul>
+      <li>Nombre del Sitio: <code class="language-plaintext highlighter-rouge">apirest</code></li>
+      <li>Grupo de Aplicaciones: DefaultAppPool</li>
+      <li>Ruta de Acceso Fisica: <code class="language-plaintext highlighter-rouge">C:/api/servicios</code></li>
+      <li>Enlace &gt; Tipo: <code class="language-plaintext highlighter-rouge">http</code></li>
+      <li>Enlace &gt; Direccion IP: <code class="language-plaintext highlighter-rouge">Todas las Asignadas</code></li>
+      <li>Enlace &gt; Puerto: <code class="language-plaintext highlighter-rouge">80</code></li>
+      <li>Enlace &gt; Nombre del Host: <code class="language-plaintext highlighter-rouge">&lt;Vacio&gt;</code></li>
+    </ul>
+  </li>
+  <li>Click en <code class="language-plaintext highlighter-rouge">Aceptar</code></li>
+</ol>
+
+<h2 id="4-publicar-desde-visual-studio">4. Publicar desde Visual Studio</h2>
+
+<ol>
+  <li>En <code class="language-plaintext highlighter-rouge">Solucion &gt; Proyecto &gt; &lt;Clic Derecho&gt; &gt; Publicar</code> elegir la siguiente configuración.
+    <ul>
+      <li>En <code class="language-plaintext highlighter-rouge">Folder Profile &gt; Editar</code> Seleccionar
+        <ul>
+          <li>Metodo de Publicación : <code class="language-plaintext highlighter-rouge">Sistema de Archivos</code></li>
+          <li>Ubicacion de Destino : <code class="language-plaintext highlighter-rouge">C:/api/servicios</code></li>
+          <li>Finalmente <code class="language-plaintext highlighter-rouge">Guardar</code></li>
+        </ul>
+      </li>
+      <li>Click en <code class="language-plaintext highlighter-rouge">Publicar</code></li>
+    </ul>
+  </li>
+</ol>
+
+</article>
+      </div>
+    </main>
+  </body>
+</html>
